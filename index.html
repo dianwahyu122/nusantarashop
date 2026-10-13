@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark" data-accent="sambal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warung Nusantara — Pesan Makanan Indonesia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ LOADER (animasi morph saat load) ============ -->
+<div id="loader" aria-hidden="true"><div class="loader-plate"><img src="images/hero-main.png" alt=""></div></div>
+
+<!-- ============ NAVBAR ============ -->
+<header class="nav" id="nav">
+  <a href="#home" class="brand" data-text="brand"></a>
+  <nav class="links" id="links">
+    <a href="#home">Beranda</a><a href="#fresh">Andalan</a><a href="#menu">Menu</a><a href="#cara">Cara Pesan</a>
+  </nav>
+  <div class="actions">
+    <button class="icon-btn" id="themeBtn" aria-label="Ganti mode gelap/terang">◐</button>
+    <button class="icon-btn" id="settingsBtn" aria-label="Pengaturan">⚙</button>
+    <button class="btn btn-accent" id="cartBtn">Keranjang <span class="count" id="cartCount">0</span></button>
+    <button class="icon-btn burger" id="burger" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main>
+<!-- ============ SECTION 1: HERO ============ -->
+<section class="hero" id="home">
+  <div class="hero-text">
+    <h1><span class="t1" data-text="heroTitle1"></span><span class="t2" data-text="heroTitle2"></span></h1>
+    <p data-text="heroDesc"></p>
+    <a href="#menu" class="btn btn-accent btn-lg">Pesan Sekarang</a>
+  </div>
+  <div class="hero-3d" id="tilt">
+    <img class="plate main" src="images/hero-main.png" alt="Nasi goreng">
+    <img class="plate side" src="images/hero-side.png" alt="Sate ayam">
+    <span class="chili c1">🌶️</span><span class="chili c2">🌶️</span><span class="chili c3">🍅</span>
+  </div>
+</section>
+
+<!-- ============ SECTION 2: ANDALAN (latar krem sobek) ============ -->
+<section class="fresh torn" id="fresh">
+  <div class="wrap center reveal">
+    <h2 data-text="freshTitle"></h2>
+    <p class="lead" data-text="freshDesc"></p>
+  </div>
+  <div class="fresh-stage"><div class="fresh-row" id="featuredRow"></div></div>
+</section>
+
+<!-- ============ SECTION 3: MENU ============ -->
+<section class="menu wrap" id="menu">
+  <div class="reveal"><h2 data-text="menuTitle"></h2><p class="lead" data-text="menuDesc"></p></div>
+  <div class="tabs reveal" id="tabs" role="tablist"></div>
+  <div class="grid" id="menuGrid"></div>
+</section>
+
+<!-- ============ SECTION 4: CARA PESAN ============ -->
+<section class="how wrap" id="cara">
+  <h2 class="reveal">Cara Pesan</h2>
+  <ol class="steps">
+    <li class="reveal"><b>Pilih menu</b><span>Tekan “Tambah” di menu yang kamu mau.</span></li>
+    <li class="reveal"><b>Isi data pesanan</b><span>Nama, alamat, dan catatan di form pesanan.</span></li>
+    <li class="reveal"><b>Kirim lewat WhatsApp</b><span>Pesanan otomatis terisi di chat kami.</span></li>
+  </ol>
+</section>
+</main>
+
+<footer class="footer"><p data-text="footer"></p></footer>
+
+<!-- ============ KERANJANG (drawer) ============ -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="cartDrawer" aria-label="Keranjang">
+  <div class="drawer-head"><h3>Keranjang</h3><button class="icon-btn" data-close>✕</button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="drawer-foot">
+    <div class="row"><span>Subtotal</span><b id="subtotal">Rp0</b></div>
+    <button class="btn btn-accent btn-lg block" id="checkoutBtn">Lanjut isi pesanan</button>
+  </div>
+</aside>
+
+<!-- ============ FORM PESANAN (pop-up) ============ -->
+<div class="modal" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="orderTitle">
+  <form class="modal-card" id="orderForm" novalidate>
+    <div class="drawer-head"><h3 id="orderTitle">Data Pesanan</h3><button type="button" class="icon-btn" data-close>✕</button></div>
+    <label>Nama <input name="nama" required autocomplete="name" placeholder="Nama kamu"></label>
+    <label>No. HP <input name="hp" required inputmode="tel" autocomplete="tel" placeholder="08xx xxxx xxxx"></label>
+    <div class="seg" id="tipeSeg">
+      <label><input type="radio" name="tipe" value="Antar" checked><span>Diantar</span></label>
+      <label><input type="radio" name="tipe" value="Ambil"><span>Ambil sendiri</span></label>
+    </div>
+    <label id="alamatWrap">Alamat lengkap <textarea name="alamat" rows="2" placeholder="Jalan, nomor, patokan"></textarea></label>
+    <label>Catatan <textarea name="catatan" rows="2" placeholder="Contoh: sambal dipisah, tidak pakai bawang"></textarea></label>
+    <div class="summary" id="orderSummary"></div>
+    <p class="error" id="formError" role="alert"></p>
+    <button class="btn btn-wa btn-lg block" type="submit">Kirim ke WhatsApp</button>
+  </form>
+</div>
+
+<!-- ============ PENGATURAN ============ -->
+<div class="modal" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="setTitle">
+  <div class="modal-card">
+    <div class="drawer-head"><h3 id="setTitle">Pengaturan</h3><button class="icon-btn" data-close>✕</button></div>
+    <h4>Mode tampilan</h4>
+    <div class="seg" id="modeSeg">
+      <label><input type="radio" name="mode" value="dark"><span>Gelap</span></label>
+      <label><input type="radio" name="mode" value="light"><span>Terang</span></label>
+    </div>
+    <h4>Warna tema</h4>
+    <div class="swatches" id="swatches"></div>
+    <h4>Animasi</h4>
+    <label class="switch"><input type="checkbox" id="animToggle" checked><span>Efek gerak &amp; 3D</span></label>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
